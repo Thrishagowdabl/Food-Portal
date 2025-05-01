@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Donation</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px;">
+
+    <div style="max-width: 600px; margin: auto; background: white; padding: 25px 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;">
+        <h2 style="color: #dc3545; margin-bottom: 20px;">Delete Donation</h2>
+
+        <p style="font-size: 18px; color: #333;">
+            Are you sure you want to delete this donation?
+        </p>
+
+        <form method="post" style="margin-top: 30px;">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Yes, Delete
+            </button>
+            <a href="{% url 'donor_dashboard' %}" style="margin-left: 15px; color: #007bff; text-decoration: none;">Cancel</a>
+        </form>
+    </div>
+
+</body>
+</html>

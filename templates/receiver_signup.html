@@ -1,0 +1,174 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Receiver Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light grey background */
+            color: black; /* Default text color to black */
+            margin: 0;
+            display: flex; /* Enable Flexbox for the body */
+            flex-direction: column;
+            min-height: 80vh;
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+        .navbar {
+            background-color: #222; /* Black background for navbar */
+            color: white;
+            width: 100%;
+            padding: 15px 0; /* Increased header padding */
+            font-size: 1rem; /* Adjusted font size */
+            position: fixed; /* Keep navbar at the top */
+            top: 0;
+            z-index: 100; /* Ensure it's above other content */
+        }
+        .navbar-brand {
+            font-size: 1.2rem;
+        }
+        .navbar-nav .nav-link {
+            padding: 0.5rem 1rem;
+        }
+        .login-container {
+            background-color: rgba(203, 152, 152, 0.75); /* Semi-transparent black for login form */
+            padding: 100px; /* Increase top padding */
+            border: 2px solid black;
+   
+            border-radius: 30px;
+            min-height: 600px;
+            max-width: 600px;
+            color: white;
+            margin-top: 100px; /* Add some top margin to avoid overlap with fixed navbar */
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            background-color: #e9ecef !important;
+            color: #000 !important;
+            border: 1px solid #ced4da;
+        }
+        .btn-primary {
+            background-color: #222; /* Black button */
+            border-color: #222;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #444;
+            border-color: #444;
+        }
+        .footer {
+            background-color: black; /* Black footer */
+            color: white;
+            padding: 15px 0; /* Increased footer padding */
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            font-size: 0.9rem; /* Adjusted font size */
+            position: fixed; /* Keep footer at the bottom */
+            bottom: 0;
+            z-index: 100; /* Ensure it's above other content */
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer h5 {
+            font-size: 1.1rem; /* Adjusted heading size */
+            margin-bottom: 5px;
+        }
+        .footer p {
+            margin-bottom: 3px;
+        }
+        .footer span {
+            font-size: 0.9rem; /* Adjusted copyright size */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Food Donation Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'donorLogin' %}">Donor Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'RecieverLogin' %}">Receiver Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'donor_signup' %}">Register as Donor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container login-container mt-5">
+        <h2 class="text-center ">Reciever Signup</h2>
+
+        <form method="POST" action="{% url 'receiver_signup' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }}
+                    {% if field.errors %}
+                        <div class="text-danger mt-1">
+                            {% for error in field.errors %}
+                                <small>{{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Register as Reciever</button>
+            </div>
+        </form>
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger mt-3">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if messages %}
+            <div class="alert alert-info mt-3">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <footer class="footer mt-auto py-1 text-center">
+        <div class="container">
+            <h5>About Food Donation Portal</h5>
+            <p class="mb-0">
+                This platform connects food donors with individuals or organizations in need. Donors can easily post available food items, and receivers can request what they need. Our goal is to reduce food waste and ensure surplus food reaches those who need it the most.
+            </p>
+            <p class="mb-0">
+                For any queries, contact us at: <a href="mailto:thrishagowdabl2005@gmail.com" class="text-white">thrishagowdabl2005@gmail.com</a>
+            </p>
+            <span>&copy; 2025 Food Donation Portal. All rights reserved.</span>
+        </div>
+    </footer>
+
+
+</body>
+</html>

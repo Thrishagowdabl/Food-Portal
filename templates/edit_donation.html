@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Donation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex; /* Added to enable flexbox */
+            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Centers vertically */
+            min-height: 100vh;
+            /* Ensures full viewport height */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0; /* Removed auto margin from here */
+            background: white;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 1px solid black; /* Added black border */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #343a40;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        a {
+            margin-left: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <h2 class="text-center">Edit Donation</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <label>
+                <span>Type of Food:</span>
+                {{ form.food_type }}
+            </label>
+
+            <label>
+                <span>Quantity:</span>
+                {{ form.quantity }}
+            </label>
+
+            <label>
+                <span>Pickup Location:</span>
+                {{ form.pickup_location }}
+            </label>
+
+            <label>
+                <span>Pickup Time:</span>
+                {{ form.pickup_time }}
+            </label>
+
+            <label>
+                <span>Expiry Date:</span>
+                {{ form.expiry_date }}
+            </label>
+
+            <button type="submit">
+                Update
+            </button>
+            <a href="{% url 'donor_dashboard' %}">Back</a>
+        </form>
+    </div>
+
+</body>
+</html>
